@@ -1,7 +1,7 @@
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, permissions, status
+from rest_framework import viewsets, permissions
 from rest_framework.filters import SearchFilter
 from rest_framework.pagination import PageNumberPagination
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .filters import AdFilter
 from .models import Ad, Comment
@@ -22,8 +22,13 @@ class AdPagination(PageNumberPagination):
 
 
 class AdViewSet(viewsets.ModelViewSet):
-    """ViewSet для объявлений."""
+    """ViewSet для объявлений.
 
+    Права:
+    - Чтение: доступно всем (включая анонимов).
+    - Создание: только авторизованные пользователи.
+    - Редактирование/удаление: только автор или администратор.
+    """
     queryset = Ad.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnlyForCreate, IsOwnerOrAdmin]
     pagination_class = AdPagination
@@ -43,16 +48,15 @@ class AdViewSet(viewsets.ModelViewSet):
         """При создании объявления автоматически подставляем автора."""
         serializer.save(author=self.request.user)
 
-    def get_permissions(self):
-        # Для создания требуется аутентификация
-        if self.action == 'create':
-            return [permissions.IsAuthenticated()]
-        return super().get_permissions()
-
 
 class CommentViewSet(viewsets.ModelViewSet):
-    """ViewSet для отзывов."""
+    """ViewSet для отзывов.
 
+    Права:
+    - Чтение: только авторизованные пользователи.
+    - Создание: авторизованные пользователи.
+    - Редактирование/удаление: только автор комментария или администратор.
+    """
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrAdmin]
 
@@ -68,4 +72,3 @@ class CommentViewSet(viewsets.ModelViewSet):
             author=self.request.user,
             ad_id=ad_id,
         )
-
