@@ -27,9 +27,10 @@ class UserViewSet(mixins.RetrieveModelMixin,
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrAdmin]
+    lookup_field = 'pk'
 
-    def get_object(self):
-        return self.request.user
+    # def get_object(self):
+    #     return self.request.user
 
     @action(detail=False, methods=['get', 'put', 'patch'], url_path='me')
     def me(self, request):

@@ -19,7 +19,7 @@ class CommentSerializer(serializers.ModelSerializer):
             'ad',
             'created_at',
         )
-        read_only_fields = ('id', 'author', 'created_at')
+        read_only_fields = ('id', 'author', 'ad', 'created_at')
 
     def get_author_name(self, obj):
         return f'{obj.author.first_name} {obj.author.last_name}'
