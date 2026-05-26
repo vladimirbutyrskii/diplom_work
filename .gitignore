@@ -43,3 +43,6 @@ coverage.xml
 
 # pytest
 .pytest_cache/
+
+.env.prod
+docker-compose.prod.yml
