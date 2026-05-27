@@ -6,7 +6,7 @@ on:
       - develop
 
 env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  # FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
   ACTIONS_STEP_DEBUG: false
 
 jobs:
