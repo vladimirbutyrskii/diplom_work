@@ -6,7 +6,6 @@ on:
       - develop
 
 env:
-  # FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
   ACTIONS_STEP_DEBUG: false
 
 jobs:
@@ -18,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy to server via SSH
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.1
         with:
           host: 111.88.246.148
           username: ${{ secrets.SSH_USER }}
