@@ -14,7 +14,7 @@ RUN apt-get update && \
     gcc \
     libpq-dev \
     libjpeg-dev \
-    zlib1g-dev && \
+    zlib1g-dev curl && \
     rm -rf /var/lib/apt/lists/*
 
 # Копирование и установка Python-зависимостей

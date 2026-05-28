@@ -18,11 +18,11 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H 93.77.191.8 >> ~/.ssh/known_hosts
+          ssh-keyscan -H 51.250.95.163 >> ~/.ssh/known_hosts
 
       - name: Test SSH connection
-        run: ssh ubuntu@93.77.191.8 "echo 'SSH connection successful'"
+        run: ssh ubuntu@51.250.95.163 "echo 'SSH connection successful'"
 
       - name: Deploy to server
         run: |
-          ssh ubuntu@93.77.191.8 "cd diplom && git pull origin develop && docker compose -f docker-compose.prod.yml down && docker compose -f docker-compose.prod.yml up --build -d && docker compose -f docker-compose.prod.yml exec -T app python manage.py migrate --noinput && docker compose -f docker-compose.prod.yml exec -T app python manage.py collectstatic --noinput"
+          ssh ubuntu@51.250.95.163 "cd diplom && git pull origin develop && docker compose -f docker-compose.prod.yml down && docker compose -f docker-compose.prod.yml up --build -d && docker compose -f docker-compose.prod.yml exec -T app python manage.py migrate --noinput && docker compose -f docker-compose.prod.yml exec -T app python manage.py collectstatic --noinput"
