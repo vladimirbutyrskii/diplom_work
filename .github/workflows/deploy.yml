@@ -25,4 +25,4 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh ubuntu@51.250.95.163 "cd diplom && git pull origin develop && docker compose -f docker-compose.prod.yml down && docker compose -f docker-compose.prod.yml up --build -d && docker compose -f docker-compose.prod.yml exec -T app python manage.py migrate --noinput && docker compose -f docker-compose.prod.yml exec -T app python manage.py collectstatic --noinput"
+          ssh ubuntu@84.201.129.11 "cd diplom && git pull origin develop && docker compose -f docker-compose.prod.yml down && docker compose -f docker-compose.prod.yml up --build -d && docker compose -f docker-compose.prod.yml exec -T app python manage.py migrate --noinput && docker compose -f docker-compose.prod.yml exec -T app python manage.py collectstatic --noinput"
