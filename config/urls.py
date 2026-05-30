@@ -9,7 +9,7 @@ from rest_framework import permissions
 schema_view = get_schema_view(
     openapi.Info(
         title="Доска объявлений API",
-        default_version='v1',
+        default_version="v1",
         description="Документация API для сайта объявлений",
     ),
     public=True,
@@ -18,14 +18,14 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     # Админ-панель Django
-    path('admin/', admin.site.urls),
-
+    path("admin/", admin.site.urls),
     # API приложений
-    path('api/', include('users.urls')),
-    path('api/', include('ads.urls')),
-
+    path("api/", include("users.urls")),
+    path("api/", include("ads.urls")),
     # Swagger-документация
-    path('api/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger-ui'),
+    path(
+        "api/docs/", schema_view.with_ui("swagger", cache_timeout=0), name="swagger-ui"
+    ),
 ]
 
 # Раздача медиа-файлов в режиме разработки

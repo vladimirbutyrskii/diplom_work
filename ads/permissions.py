@@ -15,7 +15,7 @@ class IsOwnerOrAdmin(permissions.BasePermission):
             return True
 
         # Владелец — полный доступ
-        if hasattr(obj, 'author') and obj.author == request.user:
+        if hasattr(obj, "author") and obj.author == request.user:
             return True
 
         # Остальные аутентифицированные — только чтение

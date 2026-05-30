@@ -16,8 +16,9 @@ from .serializers import (
 
 class AdPagination(PageNumberPagination):
     """Пагинация для объявлений — максимум 4 на странице."""
+
     page_size = 4
-    page_size_query_param = 'page_size'
+    page_size_query_param = "page_size"
     max_page_size = 4
 
 
@@ -29,17 +30,18 @@ class AdViewSet(viewsets.ModelViewSet):
     - Создание: только авторизованные пользователи.
     - Редактирование/удаление: только автор или администратор.
     """
+
     queryset = Ad.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnlyForCreate, IsOwnerOrAdmin]
     pagination_class = AdPagination
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = AdFilter
-    search_fields = ['title']
+    search_fields = ["title"]
 
     def get_serializer_class(self):
-        if self.action == 'list':
+        if self.action == "list":
             return AdListSerializer
-        elif self.action == 'retrieve':
+        elif self.action == "retrieve":
             return AdDetailSerializer
         else:  # create, update, partial_update
             return AdCreateUpdateSerializer
@@ -57,17 +59,18 @@ class CommentViewSet(viewsets.ModelViewSet):
     - Создание: авторизованные пользователи.
     - Редактирование/удаление: только автор комментария или администратор.
     """
+
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrAdmin]
 
     def get_queryset(self):
         """Возвращаем отзывы только для конкретного объявления."""
-        ad_id = self.kwargs.get('ad_pk')
+        ad_id = self.kwargs.get("ad_pk")
         return Comment.objects.filter(ad_id=ad_id)
 
     def perform_create(self, serializer):
         """При создании отзыва подставляем автора и объявление."""
-        ad_id = self.kwargs.get('ad_pk')
+        ad_id = self.kwargs.get("ad_pk")
         serializer.save(
             author=self.request.user,
             ad_id=ad_id,

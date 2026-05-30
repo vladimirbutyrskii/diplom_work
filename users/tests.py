@@ -1,3 +1,2 @@
-from django.test import TestCase
-
-# Create your tests here.
+# users/tests.py
+"""Тесты для приложения users."""

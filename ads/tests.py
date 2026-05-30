@@ -1,3 +1,2 @@
-from django.test import TestCase
-
-# Create your tests here.
+# ads/tests.py
+"""Тесты для приложения ads."""

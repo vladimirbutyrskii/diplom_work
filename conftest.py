@@ -1,5 +1,4 @@
 import pytest
-from django.core.files.uploadedfile import SimpleUploadedFile
 from rest_framework.test import APIClient
 
 from users.models import User
@@ -15,11 +14,11 @@ def api_client():
 def user_data():
     """Данные для создания пользователя."""
     return {
-        'email': 'user@example.com',
-        'first_name': 'Иван',
-        'last_name': 'Петров',
-        'phone': '+79991234567',
-        'password': 'securepass123',
+        "email": "user@example.com",
+        "first_name": "Иван",
+        "last_name": "Петров",
+        "phone": "+79991234567",
+        "password": "securepass123",
     }
 
 
@@ -34,8 +33,9 @@ def user(db, user_data):
 def user_client(api_client, user):
     """API-клиент, авторизованный как обычный пользователь."""
     from rest_framework_simplejwt.tokens import AccessToken
+
     token = AccessToken.for_user(user)
-    api_client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
+    api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
     api_client.user = user
     return api_client
 
@@ -44,17 +44,17 @@ def user_client(api_client, user):
 def admin_data():
     """Данные для создания администратора."""
     return {
-        'email': 'admin@example.com',
-        'first_name': 'Админ',
-        'last_name': 'Админов',
-        'password': 'adminpass123',
+        "email": "admin@example.com",
+        "first_name": "Админ",
+        "last_name": "Админов",
+        "password": "adminpass123",
     }
 
 
 @pytest.fixture
 def admin(db, admin_data):
     """Администратор (роль admin)."""
-    admin = User.objects.create_user(**admin_data, role='admin')
+    admin = User.objects.create_user(**admin_data, role="admin")
     return admin
 
 
@@ -62,8 +62,9 @@ def admin(db, admin_data):
 def admin_client(api_client, admin):
     """API-клиент, авторизованный как администратор."""
     from rest_framework_simplejwt.tokens import AccessToken
+
     token = AccessToken.for_user(admin)
-    api_client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
+    api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
     api_client.user = admin
     return api_client
 
@@ -72,9 +73,9 @@ def admin_client(api_client, admin):
 def ad_data():
     """Данные для создания объявления."""
     return {
-        'title': 'Продам гараж',
-        'price': 50000,
-        'description': 'Кирпичный, сухой, с ямой',
+        "title": "Продам гараж",
+        "price": 50000,
+        "description": "Кирпичный, сухой, с ямой",
     }
 
 
@@ -82,6 +83,7 @@ def ad_data():
 def ad(db, user, ad_data):
     """Объявление, созданное обычным пользователем."""
     from ads.models import Ad
+
     return Ad.objects.create(author=user, **ad_data)
 
 
@@ -89,7 +91,7 @@ def ad(db, user, ad_data):
 def comment_data():
     """Данные для создания отзыва."""
     return {
-        'text': 'Отличный гараж, рекомендую!',
+        "text": "Отличный гараж, рекомендую!",
     }
 
 
@@ -97,5 +99,5 @@ def comment_data():
 def comment(db, user, ad, comment_data):
     """Отзыв, созданный обычным пользователем."""
     from ads.models import Comment
-    return Comment.objects.create(author=user, ad=ad, **comment_data)
 
+    return Comment.objects.create(author=user, ad=ad, **comment_data)

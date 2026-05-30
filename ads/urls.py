@@ -6,13 +6,13 @@ from .views import AdViewSet, CommentViewSet
 
 # Основной роутер для объявлений
 router = DefaultRouter()
-router.register(r'ads', AdViewSet, basename='ads')
+router.register(r"ads", AdViewSet, basename="ads")
 
 # Вложенный роутер для отзывов: /ads/{ad_pk}/comments/
-ads_router = routers.NestedSimpleRouter(router, r'ads', lookup='ad')
-ads_router.register(r'comments', CommentViewSet, basename='ad-comments')
+ads_router = routers.NestedSimpleRouter(router, r"ads", lookup="ad")
+ads_router.register(r"comments", CommentViewSet, basename="ad-comments")
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('', include(ads_router.urls)),
+    path("", include(router.urls)),
+    path("", include(ads_router.urls)),
 ]

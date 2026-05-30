@@ -10,20 +10,25 @@ from .views import (
 )
 
 router = DefaultRouter()
-router.register(r'users', UserViewSet, basename='users')
+router.register(r"users", UserViewSet, basename="users")
 
 urlpatterns = [
     # JWT-токены
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
+    path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     # Регистрация
-    path('register/', UserRegisterView.as_view(), name='register'),
-
+    path("register/", UserRegisterView.as_view(), name="register"),
     # Сброс пароля
-    path('users/reset_password/', ResetPasswordRequestView.as_view(), name='reset_password'),
-    path('users/reset_password_confirm/', ResetPasswordConfirmView.as_view(), name='reset_password_confirm'),
+    path(
+        "users/reset_password/",
+        ResetPasswordRequestView.as_view(),
+        name="reset_password",
+    ),
+    path(
+        "users/reset_password_confirm/",
+        ResetPasswordConfirmView.as_view(),
+        name="reset_password_confirm",
+    ),
 ]
 
 urlpatterns += router.urls
-
